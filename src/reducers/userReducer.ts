@@ -1,4 +1,9 @@
-const initialState = {
+const initialState: initialStateType = {
+    token: '',
+    id: '',
+    email: '',
+    diskSpace: 0,
+    usedSpace: 0
 
 }
 
@@ -9,7 +14,13 @@ export default function userReducer(state: initialStateType = initialState, acti
     }
 }
 
-// types
 
-type initialStateType = any
+// types
+type initialStateType = {
+    token: string,
+    id: string,
+    email: string,
+    diskSpace: number,
+    usedSpace: number
+}
 type ActionTypes = any
