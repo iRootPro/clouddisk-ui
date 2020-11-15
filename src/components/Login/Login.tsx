@@ -1,41 +1,30 @@
 import React from 'react';
-import {useFormik} from "formik";
-import {registrationTC} from "../../reducers/userReducer";
 import {useDispatch} from "react-redux";
+import {useFormik} from "formik";
+import {loginTC} from "../../reducers/userReducer";
 
-
-const Registration = () => {
+const Login = () => {
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        // validate: (values) => {
-        //     let errors = {email: '', password: ''}
-        //     if (!values.email) {
-        //         errors.email = 'Необходимо ввести email'
-        //     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-        //         errors.email = 'Не верный формат email'
-        //     }
-        //     return errors
-        // },
         onSubmit: async (values) => {
             try {
-                await dispatch(registrationTC(values.email, values.password))
+                await dispatch(loginTC(values.email, values.password))
             }
-             catch (e) {
-                 console.log(e)
-             }
+            catch (e) {
+                console.log(e)
+            }
         }
     })
-
     return (
         <div className={"valign-wrapper"} style={{height: "90vh"}}>
             <div className={"row z-depth-2"}>
                 <div className="row">
                     <div className={"col s12 center-align"}>
-                        <h3>Регистрация</h3>
+                        <h3>Вход в Cloud Disk</h3>
                     </div>
                     <form onSubmit={formik.handleSubmit} className="col s12 center-align">
                         <div className="row">
@@ -66,7 +55,7 @@ const Registration = () => {
                         </div>
                         <div className="row">
                             <div className="col s12">
-                                <button type="submit" className="blue darken-1 btn">Зарегистрироваться</button>
+                                <button type="submit" className="blue darken-1 btn">Войти</button>
                             </div>
                         </div>
                     </form>
@@ -76,4 +65,4 @@ const Registration = () => {
     );
 };
 
-export default Registration;
+export default Login;
