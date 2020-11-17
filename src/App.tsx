@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import Navbar from "./components/Navbar/Navbar";
 import styles from "./app.module.css"
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./store/store";
 import {authTC} from "./reducers/userReducer";
+import Disk from "./components/Disk/Disk";
 
 function App() {
     const isLogged = useSelector<AppRootState, boolean>(state => state.user.isLogged)
@@ -20,11 +21,16 @@ function App() {
         <BrowserRouter>
             <div className={styles.app}>
                 <Navbar/>
-                {!isLogged &&
+                {!isLogged ?
                 <Switch>
                     <Route path={"/registration"} component={Registration}/>
                     <Route path={"/login"} component={Login}/>
-                </Switch>
+                    <Redirect to={'/login'}/>
+                </Switch> :
+                    <Switch>
+                        <Route exact path={"/"} component={Disk}/>
+                        <Redirect to={'/'}/>
+                    </Switch>
                 }
             </div>
         </BrowserRouter>

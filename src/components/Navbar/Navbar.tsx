@@ -24,7 +24,7 @@ const Navbar = () => {
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         {!isLogged && <li><NavLink to={'/login'}>Войти</NavLink></li>}
                         {!isLogged && <li><NavLink to={'/registration'}>Регистрация</NavLink></li>}
-                        {isLogged && <li onClick={logoutHandler}>Выйти</li>}
+                        {isLogged && <li style={{marginRight: "5px"}} onClick={logoutHandler}>Выйти</li>}
                     </ul>
                 </div>
             </nav>
