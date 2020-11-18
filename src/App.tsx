@@ -12,7 +12,6 @@ import Disk from "./components/Disk/Disk";
 function App() {
     const isLogged = useSelector<AppRootState, boolean>(state => state.user.isLogged)
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(authTC())
     }, [])
@@ -22,11 +21,11 @@ function App() {
             <div className={styles.app}>
                 <Navbar/>
                 {!isLogged ?
-                <Switch>
-                    <Route path={"/registration"} component={Registration}/>
-                    <Route path={"/login"} component={Login}/>
-                    <Redirect to={'/login'}/>
-                </Switch> :
+                    <Switch>
+                        <Route path={"/registration"} component={Registration}/>
+                        <Route path={"/login"} component={Login}/>
+                        <Redirect to={'/login'}/>
+                    </Switch> :
                     <Switch>
                         <Route exact path={"/"} component={Disk}/>
                         <Redirect to={'/'}/>
