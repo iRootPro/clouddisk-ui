@@ -54,6 +54,15 @@ export const createDirTC = (name: string, dirId: string) => (dispatch: Dispatch<
         .catch(e => console.log(e))
 }
 
+export const uploadFileTC = (file: any, dirId: string) => (dispatch: Dispatch<any>) => {
+    fileAPI.uploadFile(file, dirId)
+        .then(res => {
+            dispatch(addFileAC(res.data))
+        })
+        .catch(e => console.log(e))
+}
+
+
 // types
 
 type initialStateType = {

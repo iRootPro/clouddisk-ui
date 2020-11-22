@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../store/store";
-import {createDirTC, getFilesTC, setCurrentDirAC} from "../../reducers/fileReducer";
+import {createDirTC, getFilesTC, setCurrentDirAC, uploadFileTC} from "../../reducers/fileReducer";
 import FileList from "./FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
@@ -36,6 +36,15 @@ const Disk = () => {
 
     }
 
+
+    function uploadFileHandler(event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.files) {
+            const files = [...event.target.files]
+            files.forEach(file => dispatch(uploadFileTC(file, currentDir)))
+        }
+
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className='row'>
@@ -43,6 +52,12 @@ const Disk = () => {
                     className="material-icons">keyboard_backspace</i></button>
                 <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
                     className="material-icons">create_new_folder</i></button>
+                <div className="file-field input-field">
+                    <div className="btn blue darken-1">
+                        <i className="material-icons">upload_file</i>
+                        <input onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
+                    </div>
+                </div>
             </div>
             <FileList/>
             {popupCreateDir && <Modal modalActive={popupCreateDir} setModalActive={setPopupCreateDir}>
