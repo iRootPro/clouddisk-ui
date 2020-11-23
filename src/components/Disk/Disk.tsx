@@ -9,6 +9,7 @@ import NewDir from "./NewDir/NewDir";
 
 const Disk = () => {
     const [popupCreateDir, setPopupCreateDir] = useState<boolean>(false)
+    const [dragEnter, setDragEnter] = useState<boolean>(false)
     const dispatch = useDispatch()
     const currentDir = useSelector<AppRootState, string>(state => state.files.currentDir)
     const stackDir = useSelector<AppRootState, Array<string>>(state => state.files.stackDir)
@@ -45,8 +46,39 @@ const Disk = () => {
 
     }
 
-    return (
-        <div className={styles.wrapper}>
+
+
+    function onDragEnterHandler(event: React.DragEvent<HTMLDivElement>) {
+        event.preventDefault()
+        event.stopPropagation()
+        setDragEnter(true)
+    }
+
+    function onDragLeaveHandler(event: React.DragEvent<HTMLDivElement>) {
+        event.preventDefault()
+        event.stopPropagation()
+        setDragEnter(false)
+    }
+
+    function onDragOverHandler(event: React.DragEvent<HTMLDivElement>) {
+        event.preventDefault()
+        event.stopPropagation()
+        setDragEnter(true)
+    }
+
+    function onDropHandler(event: React.DragEvent<HTMLDivElement>) {
+        event.preventDefault()
+        event.stopPropagation()
+        const files = [...event.dataTransfer.files]
+        files.forEach(file => dispatch(uploadFileTC(file, currentDir)))
+        setDragEnter(falsegit )
+    }
+
+    return (!dragEnter ?
+        <div className={styles.wrapper}
+             onDragEnter={event => onDragEnterHandler(event)}
+             onDragLeave={event => onDragLeaveHandler(event)}
+             onDragOver={event => onDragOverHandler(event)}>
             <div className='row'>
                 <button onClick={backDirHandler} className='btn blue darken-1' style={{marginRight: "5px"}}><i
                     className="material-icons">keyboard_backspace</i></button>
@@ -66,6 +98,12 @@ const Disk = () => {
                 </div>
             </Modal>}
         </div>
+            :
+            <div className={styles.dragdrop}
+                 onDrop={event => onDropHandler(event)}
+                 onDragEnter={event => onDragEnterHandler(event)}
+                 onDragLeave={event => onDragLeaveHandler(event)}
+                 onDragOver={event => onDragOverHandler(event)}>Перетащите файлы сюда</div>
     );
 };
 
