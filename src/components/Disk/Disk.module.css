@@ -12,3 +12,10 @@
     font-size: 30px;
     background-color: aliceblue;
 }
+
+.dragTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

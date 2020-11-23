@@ -47,7 +47,6 @@ const Disk = () => {
     }
 
 
-
     function onDragEnterHandler(event: React.DragEvent<HTMLDivElement>) {
         event.preventDefault()
         event.stopPropagation()
@@ -75,35 +74,45 @@ const Disk = () => {
     }
 
     return (!dragEnter ?
-        <div className={styles.wrapper}
-             onDragEnter={event => onDragEnterHandler(event)}
-             onDragLeave={event => onDragLeaveHandler(event)}
-             onDragOver={event => onDragOverHandler(event)}>
-            <div className='row'>
-                <button onClick={backDirHandler} className='btn blue darken-1' style={{marginRight: "5px"}}><i
-                    className="material-icons">keyboard_backspace</i></button>
-                <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
-                    className="material-icons">create_new_folder</i></button>
-                <div className="file-field input-field">
-                    <div className="btn blue darken-1">
-                        <i className="material-icons">upload_file</i>
-                        <input onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
-                    </div>
-                </div>
-            </div>
-            <FileList/>
-            {popupCreateDir && <Modal modalActive={popupCreateDir} setModalActive={setPopupCreateDir}>
-                <div className="row">
-                    <NewDir createDir={createDir}/>
-                </div>
-            </Modal>}
-        </div>
-            :
-            <div className={styles.dragdrop}
-                 onDrop={event => onDropHandler(event)}
+            <div className={styles.wrapper}
                  onDragEnter={event => onDragEnterHandler(event)}
                  onDragLeave={event => onDragLeaveHandler(event)}
-                 onDragOver={event => onDragOverHandler(event)}>Перетащите файлы сюда</div>
+                 onDragOver={event => onDragOverHandler(event)}>
+                <div className='row'>
+                    <button onClick={backDirHandler} className='btn blue darken-1' style={{marginRight: "5px"}}><i
+                        className="material-icons">keyboard_backspace</i></button>
+                    <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
+                        className="material-icons">create_new_folder</i></button>
+                    <div className="file-field input-field">
+                        <div className="btn blue darken-1">
+                            <i className="material-icons">upload_file</i>
+                            <input onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
+                        </div>
+                    </div>
+                </div>
+                <FileList/>
+                {popupCreateDir && <Modal modalActive={popupCreateDir} setModalActive={setPopupCreateDir}>
+                    <div className="row">
+                        <NewDir createDir={createDir}/>
+                    </div>
+                </Modal>}
+            </div>
+            :
+            <div>
+                <div className={styles.dragdrop}
+                     onDrop={event => onDropHandler(event)}
+                     onDragEnter={event => onDragEnterHandler(event)}
+                     onDragLeave={event => onDragLeaveHandler(event)}
+                     onDragOver={event => onDragOverHandler(event)}>
+                    <div className={styles.dragTitle}>
+                        <i className="large material-icons">cloud_upload</i>
+                        <span>Перетащите файлы сюда</span>
+                    </div>
+                </div>
+
+
+            </div>
+
     );
 };
 
