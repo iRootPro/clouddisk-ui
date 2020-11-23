@@ -71,7 +71,7 @@ const Disk = () => {
         event.stopPropagation()
         const files = [...event.dataTransfer.files]
         files.forEach(file => dispatch(uploadFileTC(file, currentDir)))
-        setDragEnter(falsegit )
+        setDragEnter(false)
     }
 
     return (!dragEnter ?
