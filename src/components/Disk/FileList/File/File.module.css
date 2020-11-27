@@ -1,0 +1,8 @@
+
+.buttons {
+    display: none;
+}
+
+.buttons hover {
+    display: block;
+}
