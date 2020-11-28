@@ -58,6 +58,11 @@ export const fileAPI = {
         })
     },
 
+    deleteFile(file: any) {
+        return instance.delete(`files?id=${file.file._id}`, {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+    }
 }
 
 export async function downloadFile(file: any) {

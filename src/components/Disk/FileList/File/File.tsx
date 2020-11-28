@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {pushToStackDirAC, setCurrentDirAC} from "../../../../reducers/fileReducer";
+import {deleteFileTC, pushToStackDirAC, setCurrentDirAC} from "../../../../reducers/fileReducer";
 import {AppRootState} from "../../../../store/store";
 import {downloadFile} from "../../../../api/cloudAPI";
 
@@ -20,6 +20,12 @@ const File = (file: any) => {
         downloadFile(file)
     }
 
+
+    function deleteHandler(event: React.MouseEvent<HTMLButtonElement>) {
+        event.stopPropagation()
+        dispatch(deleteFileTC(file))
+    }
+
     return (
         <tr onClick={openFolderHandler}>
             <td className="row valign-wrapper">
@@ -29,7 +35,7 @@ const File = (file: any) => {
                 {file.file.type !== 'dir' &&
                 <button onClick={event => downloadHandler(event)} className="btn-flat" style={{marginRight: "5px"}}><i
                     className="material-icons">file_download</i></button>}
-                <button className="btn-flat" style={{marginRight: "10px"}}><i
+                <button onClick={(event) => deleteHandler(event)} className="btn-flat" style={{marginRight: "10px"}}><i
                     className="material-icons">delete</i></button>
             </td>
             <td>{file.file.date.slice(0, 10)}</td>
