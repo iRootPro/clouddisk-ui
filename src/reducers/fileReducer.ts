@@ -25,7 +25,6 @@ export default function fileReducer(state: initialStateType = initialState, acti
         case PUSH_TO_STACK_DIR:
             return {...state, stackDir: [...state.stackDir, action.payload]}
         case DELETE_FILE:
-            console.log('id',action.payload)
             return {...state, files: [...state.files.filter(file => file._id !== action.payload)]}
         default:
             return state

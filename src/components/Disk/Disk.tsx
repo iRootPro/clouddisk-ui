@@ -6,6 +6,7 @@ import FileList from "./FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
 import NewDir from "./NewDir/NewDir";
+import Uploader from "../Uploader/Uploader";
 
 const Disk = () => {
     const [popupCreateDir, setPopupCreateDir] = useState<boolean>(false)
@@ -96,6 +97,7 @@ const Disk = () => {
                         <NewDir createDir={createDir}/>
                     </div>
                 </Modal>}
+                <Uploader/>
             </div>
             :
             <div>
@@ -109,8 +111,6 @@ const Disk = () => {
                         <span>Перетащите файлы сюда</span>
                     </div>
                 </div>
-
-
             </div>
 
     );
