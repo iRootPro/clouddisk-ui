@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteFileTC, pushToStackDirAC, setCurrentDirAC} from "../../../../reducers/fileReducer";
 import {AppRootState} from "../../../../store/store";
 import {downloadFile} from "../../../../api/cloudAPI";
+import {sizeFormat} from "../../../../utils/sizeFormat";
 
 const File = (file: any) => {
     const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
@@ -39,7 +40,7 @@ const File = (file: any) => {
                     className="material-icons">delete</i></button>
             </td>
             <td>{file.file.date.slice(0, 10)}</td>
-            <td>{file.file.size}</td>
+            <td>{sizeFormat(file.file.size)}</td>
         </tr>
     );
 };
