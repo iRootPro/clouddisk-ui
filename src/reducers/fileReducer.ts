@@ -33,12 +33,12 @@ export default function fileReducer(state: initialStateType = initialState, acti
 
 // actions
 
-export const setFilesAC = (files: Array<any>) => ({type: SET_FILES, payload: files})
-export const setCurrentDirAC = (currentDir: null | string) => ({type: SET_CURRENT_DIR, payload: currentDir})
-export const addFileAC = (file: any) => ({type: ADD_FILE, payload: file})
-export const pushToStackDirAC = (dir: string) => ({type: PUSH_TO_STACK_DIR, payload: dir})
-export const popFromStackDirAC = (dir: string) => ({type: POP_FROM_STACK_DIR, payload: dir})
-export const deleteFileAC = (id: string) => ({type: DELETE_FILE, payload: id})
+export const setFilesAC = (files: Array<any>) => ({type: SET_FILES, payload: files} as const)
+export const setCurrentDirAC = (currentDir: null | string) => ({type: SET_CURRENT_DIR, payload: currentDir} as const)
+export const addFileAC = (file: any) => ({type: ADD_FILE, payload: file} as const)
+export const pushToStackDirAC = (dir: any) => ({type: PUSH_TO_STACK_DIR, payload: dir} as const)
+export const popFromStackDirAC = (dir: string) => ({type: POP_FROM_STACK_DIR, payload: dir} as const)
+export const deleteFileAC = (id: string) => ({type: DELETE_FILE, payload: id} as const)
 
 // thunks
 
@@ -58,14 +58,6 @@ export const createDirTC = (name: string, dirId: string) => (dispatch: Dispatch<
         .catch(e => console.log(e))
 }
 
-export const uploadFileTC = (file: any, dirId: string) => (dispatch: Dispatch<any>) => {
-    fileAPI.uploadFile(file, dirId)
-        .then(res => {
-            dispatch(addFileAC(res.data))
-        })
-        .catch(e => console.log(e))
-}
-
 export const deleteFileTC = (file: any) => (dispatch: Dispatch<any>) => {
     fileAPI.deleteFile(file)
         .then(res => {
@@ -73,7 +65,6 @@ export const deleteFileTC = (file: any) => (dispatch: Dispatch<any>) => {
         })
         .catch(e => console.log(e))
 }
-
 
 // types
 
@@ -83,7 +74,7 @@ type initialStateType = {
     stackDir: Array<string>
 }
 
-type fileType = {
+export type fileType = {
     childs: Array<any>
     date: string
     name: string

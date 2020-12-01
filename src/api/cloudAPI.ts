@@ -1,4 +1,9 @@
 import axios from "axios"
+import {Dispatch} from "react";
+import {addUploadFileAC, changePercentUploadAC, showUploaderAC} from "../reducers/uploadReducer";
+import {addFileAC} from "../reducers/fileReducer";
+import {v1} from "uuid"
+
 
 const instance = axios.create({
     baseURL: 'http://localhost:31337/api/'
@@ -39,23 +44,30 @@ export const fileAPI = {
         })
     },
 
-    uploadFile(file: any, dirId: string) {
-        const formData = new FormData()
-        formData.append('file', file)
-        if (dirId) {
-            formData.append('parent', dirId)
-        }
-        return instance.post('files/upload', formData, {
-            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
-            onUploadProgress: progressEvent => {
-                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                console.log('total', totalLength)
-                if (totalLength) {
-                    let progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                    console.log(progress)
-                }
+    uploadFile: (file: any, dirId: string) => async (dispatch: Dispatch<any>) => {
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+            if (dirId) {
+                formData.append('parent', dirId)
             }
-        })
+            const uploadFile = {name: file.name, progress: 0, id: v1()}
+            dispatch(showUploaderAC())
+            dispatch(addUploadFileAC(uploadFile))
+            const res = await instance.post('files/upload', formData, {
+                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+                onUploadProgress: progressEvent => {
+                    const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                    if (totalLength) {
+                        uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                        dispatch(changePercentUploadAC(uploadFile))
+                    }
+                }
+            })
+            dispatch(addFileAC(res.data))
+        } catch (e) {
+            console.log(e)
+        }
     },
 
     deleteFile(file: any) {

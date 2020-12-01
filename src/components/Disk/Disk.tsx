@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../store/store";
-import {createDirTC, getFilesTC, setCurrentDirAC, uploadFileTC} from "../../reducers/fileReducer";
+import {createDirTC, getFilesTC, setCurrentDirAC} from "../../reducers/fileReducer";
 import FileList from "./FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
 import NewDir from "./NewDir/NewDir";
 import Uploader from "../Uploader/Uploader";
+import {fileAPI} from "../../api/cloudAPI";
 
 const Disk = () => {
     const [popupCreateDir, setPopupCreateDir] = useState<boolean>(false)
     const [dragEnter, setDragEnter] = useState<boolean>(false)
     const dispatch = useDispatch()
-    const currentDir = useSelector<AppRootState, string>(state => state.files.currentDir)
+    const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
     const stackDir = useSelector<AppRootState, Array<string>>(state => state.files.stackDir)
 
     useEffect(() => {
@@ -42,7 +43,7 @@ const Disk = () => {
     function uploadFileHandler(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files) {
             const files = [...event.target.files]
-            files.forEach(file => dispatch(uploadFileTC(file, currentDir)))
+            files.forEach(file => dispatch(fileAPI.uploadFile(file, currentDir)))
         }
 
     }
@@ -70,7 +71,7 @@ const Disk = () => {
         event.preventDefault()
         event.stopPropagation()
         const files = [...event.dataTransfer.files]
-        files.forEach(file => dispatch(uploadFileTC(file, currentDir)))
+        files.forEach(file => dispatch(fileAPI.uploadFile(file, currentDir)))
         setDragEnter(false)
     }
 

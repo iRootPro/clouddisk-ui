@@ -5,7 +5,7 @@ import {AppRootState} from "../../../../store/store";
 import {downloadFile} from "../../../../api/cloudAPI";
 
 const File = (file: any) => {
-    const currentDir = useSelector<AppRootState, string>(state => state.files.currentDir)
+    const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
     const dispatch = useDispatch()
 
     function openFolderHandler() {
@@ -44,3 +44,6 @@ const File = (file: any) => {
     );
 };
 export default File;
+
+//types
+type currentDirType = null | string
