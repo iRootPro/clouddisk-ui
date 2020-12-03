@@ -1,23 +1,21 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import File from "./File/File"
-import {AppRootState} from "../../../store/store";
+import File from "../File/File"
+import {AppRootState} from "../../../../store/store";
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import "./File/fileList.css"
+import "./fileList.css"
+import styles from "./FileList.module.css"
 
 const FileList = () => {
     const files = useSelector<AppRootState, Array<any>>(state => state.files.files)
     return (
         <div className="row">
-            <table className="highlight">
-                <thead>
-                <tr>
-                    <th>Название</th>
-                    <th>Дата</th>
-                    <th>Размер</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div className={styles.header}>
+                <div className={styles.name}>Название</div>
+                <div className={styles.date}>Дата</div>
+                <div className={styles.size}>Размер</div>
+            </div>
+
                 <TransitionGroup>
                     {files.map(file =>
                         <CSSTransition
@@ -30,8 +28,7 @@ const FileList = () => {
                         </CSSTransition>
                     )}
                 </TransitionGroup>
-                </tbody>
-            </table>
+
         </div>
     )
 };

@@ -1,8 +1,32 @@
-
-.buttons {
-    display: none;
+.file {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #dadada;
 }
 
-.buttons hover {
-    display: block;
+.file:hover {
+    background-color: #f9f9f9;
+}
+
+.fileRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fileName {
+    flex: 3;
+    display: flex;
+    align-items: center;
+}
+
+.date {
+    flex: 1
+}
+
+.size {
+    flex: 1;
 }

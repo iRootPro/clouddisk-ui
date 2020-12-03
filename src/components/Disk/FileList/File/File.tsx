@@ -4,6 +4,7 @@ import {deleteFileTC, pushToStackDirAC, setCurrentDirAC} from "../../../../reduc
 import {AppRootState} from "../../../../store/store";
 import {downloadFile} from "../../../../api/cloudAPI";
 import {sizeFormat} from "../../../../utils/sizeFormat";
+import styles from "./File.module.css"
 
 const File = (file: any) => {
     const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
@@ -28,20 +29,25 @@ const File = (file: any) => {
     }
 
     return (
-        <tr onClick={openFolderHandler}>
-            <td className="row valign-wrapper">
-                <div className="col s12 valign-wrapper">
-                    <i className="small material-icons">{file.file.type === 'dir' ? 'folder_open' : 'insert_drive_file'}</i>{file.file.name}
+        <div className={styles.file} onClick={openFolderHandler}>
+            <div className={styles.fileName}>
+                <div className={styles.fileName}>
+                    <i className="small material-icons">{file.file.type === 'dir' ? 'folder_open' : 'insert_drive_file'}</i>
+                    <div>
+                        {file.file.name}
+                    </div>
                 </div>
-                {file.file.type !== 'dir' &&
-                <button onClick={event => downloadHandler(event)} className="btn-flat" style={{marginRight: "5px"}}><i
-                    className="material-icons">file_download</i></button>}
-                <button onClick={(event) => deleteHandler(event)} className="btn-flat" style={{marginRight: "10px"}}><i
-                    className="material-icons">delete</i></button>
-            </td>
-            <td>{file.file.date.slice(0, 10)}</td>
-            <td>{sizeFormat(file.file.size)}</td>
-        </tr>
+                <div>
+                    {file.file.type !== 'dir' &&
+                    <button onClick={event => downloadHandler(event)} className="btn-flat" style={{marginRight: "5px"}}><i
+                        className="material-icons">file_download</i></button>}
+                    <button onClick={(event) => deleteHandler(event)} className="btn-flat" style={{marginRight: "10px"}}><i
+                        className="material-icons">delete</i></button>
+                </div>
+            </div>
+            <div className={styles.date}>{file.file.date.slice(0, 10)}</div>
+            <div className={styles.size}>{sizeFormat(file.file.size)}</div>
+        </div>
     );
 };
 export default File;

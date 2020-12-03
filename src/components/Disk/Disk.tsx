@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../store/store";
 import {createDirTC, getFilesTC, setCurrentDirAC} from "../../reducers/fileReducer";
-import FileList from "./FileList/FileList";
+import FileList from "./FileList/FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
 import NewDir from "./NewDir/NewDir";
