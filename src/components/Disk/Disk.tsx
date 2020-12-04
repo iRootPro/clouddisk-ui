@@ -80,15 +80,19 @@ const Disk = () => {
                  onDragEnter={event => onDragEnterHandler(event)}
                  onDragLeave={event => onDragLeaveHandler(event)}
                  onDragOver={event => onDragOverHandler(event)}>
-                <div className='row'>
-                    <button onClick={backDirHandler} className='btn blue darken-1' style={{marginRight: "5px"}}><i
-                        className="material-icons">keyboard_backspace</i></button>
-                    <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
-                        className="material-icons">create_new_folder</i></button>
-                    <div className="file-field input-field">
+                <div className={styles.navigate}>
+                    <div>
+                        <button onClick={backDirHandler} className='btn blue darken-1' style={{marginRight: "5px"}}><i
+                            className="material-icons">keyboard_backspace</i></button>
+                    </div>
+                    <div>
+                        <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
+                            className="material-icons">create_new_folder</i></button>
+                    </div>
+                    <div style={{marginLeft: "5px", marginBottom: "0px"}}>
                         <div className="btn blue darken-1">
                             <i className="material-icons">upload_file</i>
-                            <input onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
+                            <input style={{opacity: "0", width: "0px"}} onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
                         </div>
                     </div>
                 </div>
