@@ -89,10 +89,11 @@ const Disk = () => {
                         <button onClick={popupCreateDirHandler} className='btn blue darken-1'><i
                             className="material-icons">create_new_folder</i></button>
                     </div>
-                    <div style={{marginLeft: "5px", marginBottom: "0px"}}>
-                        <div className="btn blue darken-1">
+                    <div style={{marginLeft: "5px"}}>
+                        <div className="btn blue darken-1 file-field input-field">
+                            <input onChange={(event => uploadFileHandler(event))} type="file"
+                                   multiple={true}/>
                             <i className="material-icons">upload_file</i>
-                            <input style={{opacity: "0", width: "0px"}} onChange={(event => uploadFileHandler(event))} type="file" multiple={true}/>
                         </div>
                     </div>
                 </div>
