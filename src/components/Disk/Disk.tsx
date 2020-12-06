@@ -15,10 +15,11 @@ const Disk = () => {
     const dispatch = useDispatch()
     const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
     const stackDir = useSelector<AppRootState, Array<string>>(state => state.files.stackDir)
+    const [sort, setSort] = useState('type')
 
     useEffect(() => {
-        dispatch(getFilesTC(currentDir))
-    }, [currentDir])
+        dispatch(getFilesTC(currentDir, sort))
+    }, [currentDir, sort])
 
     const popupCreateDirHandler = () => {
         setPopupCreateDir(true)
@@ -95,6 +96,18 @@ const Disk = () => {
                                    multiple={true}/>
                             <i className="material-icons">upload_file</i>
                         </div>
+                    </div>
+                    <div style={{marginLeft: "5px"}}>
+                        <span className={styles.sort}>Сортировка по:</span>
+                    </div>
+                    <div>
+                        <button onClick={() => setSort('type')} className='btn blue darken-1' style={{marginLeft: "5px"}}>типу</button>
+                    </div>
+                    <div>
+                        <button onClick={() => setSort('name')} className='btn blue darken-1' style={{marginLeft: "5px"}}>имени</button>
+                    </div>
+                    <div>
+                        <button onClick={() => setSort('date')} className='btn blue darken-1' style={{marginLeft: "5px"}}>дате</button>
                     </div>
                 </div>
                 <FileList/>

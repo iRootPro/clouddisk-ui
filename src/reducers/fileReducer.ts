@@ -42,8 +42,8 @@ export const deleteFileAC = (id: string) => ({type: DELETE_FILE, payload: id} as
 
 // thunks
 
-export const getFilesTC = (dir: string) => (dispatch: Dispatch<any>) => {
-    fileAPI.getFiles(dir)
+export const getFilesTC = (dir: string, sort: string) => (dispatch: Dispatch<any>) => {
+    fileAPI.getFiles(dir, sort)
         .then(res => {
             dispatch(setFilesAC(res.data))
         })

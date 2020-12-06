@@ -25,3 +25,8 @@
     margin-bottom: 10px;
     align-items: center;
 }
+
+.sort {
+    font-size: 16px;
+    font-weight: inherit;
+}

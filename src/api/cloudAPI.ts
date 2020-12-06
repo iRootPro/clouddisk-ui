@@ -28,8 +28,8 @@ export const authAPI = {
 }
 
 export const fileAPI = {
-    getFiles(dir: string) {
-        return instance.get(`files?${dir ? 'parent=' + dir : ''}`, {
+    getFiles(dir: string, sort: string) {
+        return instance.get(`files?${dir ? 'parent=' + dir : ''}&sort=${sort}`, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
     },
