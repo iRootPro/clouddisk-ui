@@ -8,6 +8,11 @@ import styles from "./FileList.module.css"
 
 const FileList = () => {
     const files = useSelector<AppRootState, Array<any>>(state => state.files.files)
+    if (files.length === 0) {
+        return (
+            <div className={styles.empty}>Папка пуста</div>
+        )
+    }
     return (
         <div className="row">
             <div className={styles.header}>

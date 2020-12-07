@@ -15,6 +15,7 @@ const Disk = () => {
     const dispatch = useDispatch()
     const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
     const stackDir = useSelector<AppRootState, Array<string>>(state => state.files.stackDir)
+    const loader = useSelector<AppRootState,boolean>(state => state.app.loader)
     const [sort, setSort] = useState('type')
 
     useEffect(() => {
@@ -74,6 +75,15 @@ const Disk = () => {
         const files = [...event.dataTransfer.files]
         files.forEach(file => dispatch(fileAPI.uploadFile(file, currentDir)))
         setDragEnter(false)
+    }
+
+    if (loader) {
+        return (
+            <div className={styles.loaderWrapper}>
+                <div className={styles.loader}></div>
+            </div>
+
+        )
     }
 
     return (!dragEnter ?

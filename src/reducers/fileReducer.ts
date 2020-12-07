@@ -1,5 +1,6 @@
 import {Dispatch} from "react";
 import {fileAPI} from "../api/cloudAPI";
+import {hideLoaderAC, showLoaderAC} from "./appReducer";
 
 const SET_FILES = 'SET_FILES'
 const SET_CURRENT_DIR = 'SET_CURRENT_DIR'
@@ -43,11 +44,15 @@ export const deleteFileAC = (id: string) => ({type: DELETE_FILE, payload: id} as
 // thunks
 
 export const getFilesTC = (dir: string, sort: string) => (dispatch: Dispatch<any>) => {
+    dispatch(showLoaderAC())
     fileAPI.getFiles(dir, sort)
         .then(res => {
             dispatch(setFilesAC(res.data))
         })
         .catch(e => console.log(e))
+        .finally(() => {
+            dispatch(hideLoaderAC())
+        })
 }
 
 export const createDirTC = (name: string, dirId: string) => (dispatch: Dispatch<any>) => {
