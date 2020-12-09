@@ -74,6 +74,12 @@ export const fileAPI = {
         return instance.delete(`files?id=${file.file._id}`, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
+    },
+
+    searchFile(value: string) {
+        return instance.get(`files/search?search=${value}`, {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
     }
 }
 

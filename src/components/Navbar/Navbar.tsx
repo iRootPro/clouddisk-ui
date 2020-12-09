@@ -19,6 +19,7 @@ const Navbar = () => {
                         <li className={styles.logo}>
                             <a href="/" className="brand-logo"><i className="material-icons">cloud</i>Cloud Disk</a>
                         </li>
+
                     </ul>
 
                     <ul id="nav-mobile" className="right hide-on-med-and-down">

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../store/store";
-import {createDirTC, getFilesTC, setCurrentDirAC} from "../../reducers/fileReducer";
+import {createDirTC, getFilesTC, searchFileTC, setCurrentDirAC} from "../../reducers/fileReducer";
 import FileList from "./FileList/FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
@@ -15,8 +15,10 @@ const Disk = () => {
     const dispatch = useDispatch()
     const currentDir = useSelector<AppRootState, any>(state => state.files.currentDir)
     const stackDir = useSelector<AppRootState, Array<string>>(state => state.files.stackDir)
-    const loader = useSelector<AppRootState,boolean>(state => state.app.loader)
+    const loader = useSelector<AppRootState, boolean>(state => state.app.loader)
     const [sort, setSort] = useState('type')
+    const [searchName, setSearchName] = useState<string>('')
+    const [searchTimeout, setSearchTimeout] = useState<any>(false)
 
     useEffect(() => {
         dispatch(getFilesTC(currentDir, sort))
@@ -86,6 +88,22 @@ const Disk = () => {
         )
     }
 
+    function searchNameHandler(e: React.ChangeEvent<HTMLInputElement>) {
+        setSearchName(e.target.value)
+        if (searchTimeout !== false) {
+            clearInterval(searchTimeout)
+        }
+        if (e.target.value !== '') {
+            setSearchTimeout(setTimeout((value) => {
+                dispatch(searchFileTC(value))
+            }, 500, e.target.value))
+        } else {
+            dispatch(getFilesTC(currentDir, sort))
+        }
+
+
+    }
+
     return (!dragEnter ?
             <div className={styles.wrapper}
                  onDragEnter={event => onDragEnterHandler(event)}
@@ -111,13 +129,23 @@ const Disk = () => {
                         <span className={styles.sort}>Сортировка по:</span>
                     </div>
                     <div>
-                        <button onClick={() => setSort('type')} className='btn blue darken-1' style={{marginLeft: "5px"}}>типу</button>
+                        <button onClick={() => setSort('type')} className='btn blue darken-1'
+                                style={{marginLeft: "5px"}}>типу
+                        </button>
                     </div>
                     <div>
-                        <button onClick={() => setSort('name')} className='btn blue darken-1' style={{marginLeft: "5px"}}>имени</button>
+                        <button onClick={() => setSort('name')} className='btn blue darken-1'
+                                style={{marginLeft: "5px"}}>имени
+                        </button>
                     </div>
                     <div>
-                        <button onClick={() => setSort('date')} className='btn blue darken-1' style={{marginLeft: "5px"}}>дате</button>
+                        <button onClick={() => setSort('date')} className='btn blue darken-1'
+                                style={{marginLeft: "5px"}}>дате
+                        </button>
+                    </div>
+                    <div style={{marginLeft: "5px"}}>
+                        <input type="text" placeholder="Название файла" className={styles.search} value={searchName}
+                               onChange={(e) => searchNameHandler(e)}/>
                     </div>
                 </div>
                 <FileList/>

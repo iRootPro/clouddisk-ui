@@ -71,6 +71,14 @@ export const deleteFileTC = (file: any) => (dispatch: Dispatch<any>) => {
         .catch(e => console.log(e))
 }
 
+export const searchFileTC = (value: string) => (dispatch: Dispatch<any>) => {
+    fileAPI.searchFile(value)
+        .then(res => {
+            dispatch(setFilesAC(res.data))
+        })
+        .catch(e => console.log(e))
+}
+
 // types
 
 type initialStateType = {
