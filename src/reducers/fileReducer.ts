@@ -72,11 +72,13 @@ export const deleteFileTC = (file: any) => (dispatch: Dispatch<any>) => {
 }
 
 export const searchFileTC = (value: string) => (dispatch: Dispatch<any>) => {
+    dispatch(showLoaderAC())
     fileAPI.searchFile(value)
         .then(res => {
             dispatch(setFilesAC(res.data))
         })
         .catch(e => console.log(e))
+        .finally(() => dispatch(hideLoaderAC()))
 }
 
 // types

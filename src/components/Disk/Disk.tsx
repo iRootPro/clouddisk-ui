@@ -8,6 +8,7 @@ import Modal from '../common/Modal/Modal';
 import NewDir from "./NewDir/NewDir";
 import Uploader from "../Uploader/Uploader";
 import {fileAPI} from "../../api/cloudAPI";
+import {showLoaderAC} from "../../reducers/appReducer";
 
 const Disk = () => {
     const [popupCreateDir, setPopupCreateDir] = useState<boolean>(false)
