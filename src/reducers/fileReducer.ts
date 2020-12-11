@@ -8,11 +8,13 @@ const ADD_FILE = 'ADD_FiLE'
 const PUSH_TO_STACK_DIR = 'PUSH_TO_STACK_DIR'
 const POP_FROM_STACK_DIR = 'POP_FROM_STACK_DIR'
 const DELETE_FILE = 'DELETE_FILE'
+const SET_FILE_VIEW = 'SET_FILE_VIEW'
 
 const initialState: initialStateType = {
     files: [],
     currentDir: null,
-    stackDir: []
+    stackDir: [],
+    view: 'list'
 }
 
 export default function fileReducer(state: initialStateType = initialState, action: ActionTypes) {
@@ -27,6 +29,8 @@ export default function fileReducer(state: initialStateType = initialState, acti
             return {...state, stackDir: [...state.stackDir, action.payload]}
         case DELETE_FILE:
             return {...state, files: [...state.files.filter(file => file._id !== action.payload)]}
+        case SET_FILE_VIEW:
+            return {...state, view: action.payload}
         default:
             return state
     }
@@ -40,6 +44,7 @@ export const addFileAC = (file: any) => ({type: ADD_FILE, payload: file} as cons
 export const pushToStackDirAC = (dir: any) => ({type: PUSH_TO_STACK_DIR, payload: dir} as const)
 export const popFromStackDirAC = (dir: string) => ({type: POP_FROM_STACK_DIR, payload: dir} as const)
 export const deleteFileAC = (id: string) => ({type: DELETE_FILE, payload: id} as const)
+export const setFileViewAC = (payload: viewFileType) => ({type: SET_FILE_VIEW, payload} as const)
 
 // thunks
 
@@ -86,8 +91,11 @@ export const searchFileTC = (value: string) => (dispatch: Dispatch<any>) => {
 type initialStateType = {
     files: Array<fileType>
     currentDir: null | string
-    stackDir: Array<string>
+    stackDir: Array<string>,
+    view: viewFileType
 }
+
+export type viewFileType = 'list' | 'plate'
 
 export type fileType = {
     childs: Array<any>
@@ -107,4 +115,5 @@ type ActionTypes =
     | ReturnType<typeof pushToStackDirAC>
     | ReturnType<typeof popFromStackDirAC>
     | ReturnType<typeof deleteFileAC>
+    | ReturnType<typeof setFileViewAC>
 

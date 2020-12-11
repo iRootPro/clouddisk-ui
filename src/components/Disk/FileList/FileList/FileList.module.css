@@ -30,3 +30,10 @@
     height: 90vh;
     font-size: 24px;
 }
+
+.plate {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}

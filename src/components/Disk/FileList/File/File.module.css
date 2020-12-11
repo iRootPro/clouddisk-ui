@@ -30,3 +30,11 @@
 .size {
     flex: 1;
 }
+
+.plate {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

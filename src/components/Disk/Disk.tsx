@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../store/store";
-import {createDirTC, getFilesTC, searchFileTC, setCurrentDirAC} from "../../reducers/fileReducer";
+import {
+    createDirTC,
+    getFilesTC,
+    searchFileTC,
+    setCurrentDirAC,
+    setFileViewAC,
+    viewFileType
+} from "../../reducers/fileReducer";
 import FileList from "./FileList/FileList/FileList";
 import styles from "./Disk.module.css"
 import Modal from '../common/Modal/Modal';
 import NewDir from "./NewDir/NewDir";
 import Uploader from "../Uploader/Uploader";
 import {fileAPI} from "../../api/cloudAPI";
-import {showLoaderAC} from "../../reducers/appReducer";
 
 const Disk = () => {
     const [popupCreateDir, setPopupCreateDir] = useState<boolean>(false)
@@ -148,6 +154,10 @@ const Disk = () => {
                         <input type="text" placeholder="Название файла" className={styles.search} value={searchName}
                                onChange={(e) => searchNameHandler(e)}/>
                     </div>
+                </div>
+                <div className={styles.view}>
+                    <div onClick={() => dispatch(setFileViewAC('list'))}><i className="material-icons" style={{cursor: "pointer"}}>list</i></div>
+                    <div onClick={() => dispatch(setFileViewAC('plate'))}><i className="material-icons" style={{cursor: "pointer"}}>apps</i></div>
                 </div>
                 <FileList/>
                 {popupCreateDir && <Modal modalActive={popupCreateDir} setModalActive={setPopupCreateDir}>
