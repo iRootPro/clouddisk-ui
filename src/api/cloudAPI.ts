@@ -80,6 +80,18 @@ export const fileAPI = {
         return instance.get(`files/search?search=${value}`, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
+    },
+
+    uploadAvatar(formData: any) {
+        return instance.post('files/avatar', formData, {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+    },
+
+    removeAvatar() {
+        return instance.delete('files/avatar', {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
     }
 }
 

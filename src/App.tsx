@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./store/store";
 import {authTC} from "./reducers/userReducer";
 import Disk from "./components/Disk/Disk";
+import Profile from "./components/Profile/Profile";
 
 function App() {
     const isLogged = useSelector<AppRootState, boolean>(state => state.user.isLogged)
@@ -28,6 +29,7 @@ function App() {
                     </Switch> :
                     <Switch>
                         <Route exact path={"/"} component={Disk}/>
+                        <Route exact path={"/profile"} component={Profile}/>
                         <Redirect to={'/'}/>
                     </Switch>
                 }

@@ -1,0 +1,27 @@
+.profile {
+    margin-left: 20px;
+}
+
+.header {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.avatar {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 20px;
+}
+.manageAvatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+}
+
+.avatarBlock {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    align-items: center;
+}
